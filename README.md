@@ -2,20 +2,19 @@
 
 ## users テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| nickname           | string | null: false |
-| email              | string | null: false |
-| encrypted_password | string | null: false |
-| family_name        | string | null: false |
-| first_name         | string | null: false |
-| family_name_kana   | string | null: false |
-| first_name_kana    | string | null: false |
-| birth_date         | date   | null: false |
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| family_name        | string | null: false               |
+| first_name         | string | null: false               |
+| family_name_kana   | string | null: false               |
+| first_name_kana    | string | null: false               |
+| birth_date         | date   | null: false               |
 
 has_many :items
 has_many :orders
-has_many :destinations 
  
 
 
@@ -23,19 +22,15 @@ has_many :destinations
 
 | Column             | Type      | Options                        |
 | ------------------ | --------- | ------------------------------ |
-| family_name        | string    | null: false                    |
-| first_name         | string    | null: false                    |
-| family_name_kana   | string    | null: false                    |
-| first_name_kana    | string    | null: false                    |
 | postal_code        | string    | null: false                    |
 | prefecture         | string    | null: false                    |
 | city               | string    | null: false                    |
 | address            | string    | null: false                    |
 | building_name      | string    |                                |
 | phone_number       | string    | null: false                    |
-| user_id            | reference | null: false, foreign_key: true |
+| order              | reference | null: false, foreign_key: true |
 
-belongs_to :user
+
 belongs_to :order
 
 ## items テーブル
@@ -44,26 +39,71 @@ belongs_to :order
 | ------------- | ---------- | ------------------------------ |
 | name          | string     | null: false                    |
 | description   | text       | null: false                    |
-| status        | integer    | null: false                    |
-| postage       | integer    | null: false                    |
-| region        | integer    | null: false                    |
-| shopping_date | integer    | null: false                    |
+| status        | references | null: false, foreign_key: true |
+| postage       | references | null: false, foreign_key: true |
+| prefecture    | references | null: false, foreign_key: true |
+| shopping_date | references | null: false, foreign_key: true |
 | price         | integer    | null: false                    |
-| category      | integer    | null: false                    |
-| buyer_id      | references | null: false, foreign_key: true |
-| user_id       | references | null: false, foreign_key: true |
+| category      | references | null: false, foreign_key: true |
+| user          | references | null: false, foreign_key: true |
 
 belongs_to :user 
-has_many :images 
 has_one :order
+belongs_to :status
+belongs_to :postage
+belongs_to :prefecture
+belongs_to :shopping_date
+belongs_to :category
+
+## statuses テーブル
+
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| status        | integer    | null: false                    |
+
+has_many :items
+
+## postages テーブル
+
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postage       | integer    | null: false                    |
+
+has_many :items
+
+## prefectures テーブル
+
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| prefecture    | integer    | null: false                    |
+
+has_many :items
+
+## shopping_dates テーブル
+
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| shopping_date | integer    | null: false                    |
+
+has_many :items
+
+## categories テーブル
+
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| category      | integer    | null: false                    |
+
+has_many :items
+
 
 
 ## orders テーブル
 
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| buyer_user_id | references | null: false, foreign_key: true |
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
 
 belongs_to :item
-has_many :users
+belongs_to :users
 has_one :destination
