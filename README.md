@@ -20,15 +20,15 @@ has_many :orders
 
 ## destinations テーブル
 
-| Column             | Type      | Options                        |
-| ------------------ | --------- | ------------------------------ |
-| postal_code        | string    | null: false                    |
-| prefecture_id      | integer   | null: false                    |
-| city               | string    | null: false                    |
-| address            | string    | null: false                    |
-| building_name      | string    |                                |
-| phone_number       | string    | null: false                    |
-| order              | reference | null: false, foreign_key: true |
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| postal_code        | string     | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| city               | string     | null: false                    |
+| address            | string     | null: false                    |
+| building_name      | string     |                                |
+| phone_number       | string     | null: false                    |
+| order              | references | null: false, foreign_key: true |
 
 
 belongs_to :order
@@ -54,47 +54,6 @@ belongs_to :postage
 belongs_to :prefecture
 belongs_to :shopping_date
 belongs_to :category
-
-## statuses テーブル
-
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| status        | integer    | null: false                    |
-
-has_many :items
-
-## postages テーブル
-
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| postage       | integer    | null: false                    |
-
-has_many :items
-
-## prefectures テーブル
-
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| prefecture    | integer    | null: false                    |
-
-has_many :items
-
-## shopping_dates テーブル
-
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| shopping_date | integer    | null: false                    |
-
-has_many :items
-
-## categories テーブル
-
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| category      | integer    | null: false                    |
-
-has_many :items
-
 
 
 ## orders テーブル
