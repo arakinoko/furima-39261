@@ -23,7 +23,7 @@ has_many :orders
 | Column             | Type      | Options                        |
 | ------------------ | --------- | ------------------------------ |
 | postal_code        | string    | null: false                    |
-| prefecture         | string    | null: false                    |
+| prefecture_id      | integer   | null: false                    |
 | city               | string    | null: false                    |
 | address            | string    | null: false                    |
 | building_name      | string    |                                |
@@ -35,17 +35,17 @@ belongs_to :order
 
 ## items テーブル
 
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| name          | string     | null: false                    |
-| description   | text       | null: false                    |
-| status        | references | null: false, foreign_key: true |
-| postage       | references | null: false, foreign_key: true |
-| prefecture    | references | null: false, foreign_key: true |
-| shopping_date | references | null: false, foreign_key: true |
-| price         | integer    | null: false                    |
-| category      | references | null: false, foreign_key: true |
-| user          | references | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| name             | string     | null: false                    |
+| description      | text       | null: false                    |
+| status_id        | integer    | null: false                    |
+| postage_id       | integer    | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| shopping_date_id | integer    | null: false                    |
+| price            | integer    | null: false                    |
+| category_id      | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
 
 belongs_to :user 
 has_one :order
@@ -105,5 +105,5 @@ has_many :items
 | item   | references | null: false, foreign_key: true |
 
 belongs_to :item
-belongs_to :users
+belongs_to :user
 has_one :destination
