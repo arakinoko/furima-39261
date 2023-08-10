@@ -31,7 +31,6 @@ RSpec.describe User, type: :model do
       it 'passwordが空では登録できない' do
         @user.password = ''
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include("Password can't be blank", "Password can't be blank", "Password confirmation doesn't match Password")
       end
       it 'passwordとpassword_confirmationが不一致では登録できない' do
@@ -45,7 +44,6 @@ RSpec.describe User, type: :model do
         another_user = FactoryBot.build(:user)
         another_user.email = @user.email
         another_user.valid?
-        # binding.pry
         expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
       it 'emailは@を含まないと登録できない' do
@@ -69,75 +67,63 @@ RSpec.describe User, type: :model do
         @user.password = '123456'
         @user.password_confirmation = '123456'
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include('Password Include both letters and numbers')
       end
       it 'passwordが半角英語のみのときに登録できない' do
         @user.password = 'abcdef'
         @user.password_confirmation = 'abcdef'
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include('Password Include both letters and numbers')
       end
       it '全角文字を含むパスワードでは登録できない' do
         @user.password = 'aｂc1２3'
         @user.password_confirmation = 'aｂc1２3'
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include('Password Include both letters and numbers')
       end
       it 'family_nameが空では登録できない' do
         @user.family_name = ''
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include("Family name can't be blank")
       end
       it 'family_nameが全角（漢字・ひらがな・カタカナ）以外では登録できない' do
         @user.family_name = 'yamada'
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include("Family name is invalid. Input full-width characters.")
       end
       it 'first_nameが空では登録できない' do
         @user.first_name = ''
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include("First name can't be blank")
       end
       it 'first_nameが全角（漢字・ひらがな・カタカナ）以外では登録できない' do
         @user.first_name = 'rikutaro'
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include('First name is invalid. Input full-width characters.')
       end
       it 'family_name_kanaが空では登録できない' do
         @user.family_name_kana = ''
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include("Family name kana can't be blank")
       end
       it 'family_name_kanaが全角（カタカナ）以外では登録できない' do
         @user.family_name_kana = 'やまだ'
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include('Family name kana is invalid. Input full-width katakana characters.')
       end
       it 'first_name_kanaが空では登録できない' do
         @user.first_name_kana = ''
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include("First name kana can't be blank")
       end
       it 'first_name_kanaが全角（カタカナ）以外では登録できない' do
         @user.first_name_kana = 'りくたろう'
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include('First name kana is invalid. Input full-width katakana characters.')
       end
       it 'birth_dateが空では登録できない' do
         @user.birth_date = ''
         @user.valid?
-        #binding.pry
         expect(@user.errors.full_messages).to include("Birth date can't be blank")
       end
     end
