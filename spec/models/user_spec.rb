@@ -31,7 +31,8 @@ RSpec.describe User, type: :model do
       it 'passwordが空では登録できない' do
         @user.password = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password can't be blank", "Password can't be blank", "Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password can't be blank", "Password can't be blank",
+                                                      "Password confirmation doesn't match Password")
       end
       it 'passwordとpassword_confirmationが不一致では登録できない' do
         @user.password = '123456'
@@ -49,7 +50,7 @@ RSpec.describe User, type: :model do
       it 'emailは@を含まないと登録できない' do
         @user.email = 'aaaaamail'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email is invalid")
+        expect(@user.errors.full_messages).to include('Email is invalid')
       end
       it 'passwordが5文字以下では登録できない' do
         @user.password = 'ab123'
@@ -61,7 +62,7 @@ RSpec.describe User, type: :model do
         @user.password = Faker::Internet.password(min_length: 129, max_length: 150)
         @user.password_confirmation = @user.password
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is too long (maximum is 128 characters)")
+        expect(@user.errors.full_messages).to include('Password is too long (maximum is 128 characters)')
       end
       it 'passwordが半角数字のみのときに登録できないこと' do
         @user.password = '123456'
@@ -89,7 +90,7 @@ RSpec.describe User, type: :model do
       it 'family_nameが全角（漢字・ひらがな・カタカナ）以外では登録できない' do
         @user.family_name = 'yamada'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Family name is invalid. Input full-width characters.")
+        expect(@user.errors.full_messages).to include('Family name is invalid. Input full-width characters.')
       end
       it 'first_nameが空では登録できない' do
         @user.first_name = ''
