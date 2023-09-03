@@ -69,6 +69,11 @@ RSpec.describe OrderDestination, type: :model do
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include('Phone number is invalid')
       end
+      it 'phone_numberが9桁以下あると保存できないこと' do
+        @order_destination.phone_number = '090123456'
+        @order_destination.valid?
+        expect(@order_destination.errors.full_messages).to include('Phone number is invalid')
+      end
       it '電話番号が半角数値でないと購入できないこと' do
         @order_destination.phone_number = '０9012341234'
         @order_destination.valid?
