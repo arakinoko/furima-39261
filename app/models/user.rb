@@ -6,7 +6,6 @@ class User < ApplicationRecord
   has_many :items
   has_many :orders
 
-
   with_options presence: true do
     validates :nickname
     validates :family_name,

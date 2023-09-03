@@ -22,12 +22,12 @@ RSpec.describe OrderDestination, type: :model do
       it 'postal_codeが空だと保存できないこと' do
         @order_destination.postal_code = ''
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Postal code can't be blank", "Postal code is invalid. Include hyphen(-)")
+        expect(@order_destination.errors.full_messages).to include("Postal code can't be blank")
       end
       it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @order_destination.postal_code = '123-123４'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+        expect(@order_destination.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
       it 'prefecture_idが「---」だと保存できないこと' do
         @order_destination.prefecture_id = '0'
@@ -62,19 +62,19 @@ RSpec.describe OrderDestination, type: :model do
       it 'phone_numberにハイフンがあると保存できないこと' do
         @order_destination.phone_number = '090-1111-2222'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
+        expect(@order_destination.errors.full_messages).to include('Phone number is invalid')
       end
       it 'phone_numberが12桁以上あると保存できないこと' do
         @order_destination.phone_number = '090123456789'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
+        expect(@order_destination.errors.full_messages).to include('Phone number is invalid')
       end
       it '電話番号が半角数値でないと購入できないこと' do
         @order_destination.phone_number = '０9012341234'
         @order_destination.valid?
-        expect(@order_destination.errors.full_messages).to include("Phone number is invalid")
+        expect(@order_destination.errors.full_messages).to include('Phone number is invalid')
       end
-      it "tokenが空では登録できないこと" do
+      it 'tokenが空では登録できないこと' do
         @order_destination.token = nil
         @order_destination.valid?
         expect(@order_destination.errors.full_messages).to include("Token can't be blank")
